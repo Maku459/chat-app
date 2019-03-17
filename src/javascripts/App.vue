@@ -1,17 +1,20 @@
 <template>
   <div>
-    <p>
-      <span class="sample">チャット</span>
-    </p>
-    <ul>
+    <div class="titlebar">
+      <p>トークルーム</p>
+    </div>
+    <div class="chatspace">
+      <ul>
         <li
           v-for="item in $data.messageList"
           :key="item.id"
         >
           <span class="list__name">{{ item.name }}</span>
           <span class="list__item">{{ item.text }}</span>
+          <span class="list__time">{{ item.time }}</span>
         </li>
       </ul>
+    </div>
     <form @submit="onSubmit">
       名前：
       <input v-model="$data.name" type="text">
@@ -34,15 +37,18 @@ export default {
     const messageList = [
       {
         name: 'a',
-        text: 'アイウエオ'
+        text: 'アイウエオ',
+        time: '18:09'
       }
     ];
+
     return {
       // map: 配列内のすべての要素に処理を行い、その戻り値から新しい配列を作成する
       messageList: messageList.map((item, index) => ({ ...item, id: index })),
       nextMessageId: messageList.length,
       name: '',
-      text: ''
+      text: '',
+      time: ''
     };
   },
   created() {
@@ -59,26 +65,58 @@ export default {
   },
   methods: {
     /**
+     * 入室したとき
+     */
+    /**
      * Enterボタンを押したとき
      */
     onSubmit(e) {
+      const date = new Date();
+      const hour = date.getHours();
+      let minutes = date.getMinutes();
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+      const label = `${hour}:${minutes}`;
       // フォーム遷移を防ぐ
       e.preventDefault();
-      socket.emit('send', { name: this.$data.name, text: this.$data.text });
+      socket.emit('send', { name: this.$data.name, text: this.$data.text, time: label });
       this.$data.messageList.push({
         id: this.$data.nextMessageId,
         name: this.$data.name,
-        text: this.$data.text
+        text: this.$data.text,
+        time: label
       });
       this.$data.nextMessageId += 1;
     },
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
-.sample {
-  color: $red;
+.titlebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
+  background-color: #333;
+  width: 100%;
+
+  p {
+    color: white;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.chatspace {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  left: 0;
 }
 
 li {
@@ -96,7 +134,7 @@ li {
     position: relative;
     box-sizing: border-box;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: yellowgreen;
 
     &::before {
@@ -108,6 +146,13 @@ li {
       border: 7px solid transparent;
       border-right: 7px solid yellowgreen;
     }
+  }
+
+  .list__time {
+    position: relative;
+    top: 7px;
+    font-size: 8px;
+    color: gray;
   }
 }
 

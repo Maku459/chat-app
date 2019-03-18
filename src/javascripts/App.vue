@@ -3,25 +3,29 @@
     <div class="titlebar">
       <p>トークルーム</p>
     </div>
-    <div class="chatspace">
-      <ul>
-        <li
-          v-for="item in $data.messageList"
-          :key="item.id"
-        >
-          <span class="list__name">{{ item.name }}</span>
-          <span class="list__item">{{ item.text }}</span>
-          <span class="list__time">{{ item.time }}</span>
-        </li>
-      </ul>
+    <div class="middle">
+      <div class="chatspace">
+        <ul>
+          <li
+            v-for="item in $data.messageList"
+            :key="item.id"
+          >
+            <span class="list__name">{{ item.name }}</span>
+            <span class="list__item">{{ item.text }}</span>
+            <span class="list__time">{{ item.time }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
-    <form @submit="onSubmit">
-      名前：
-      <input v-model="$data.name" type="text">
-      テキスト：
-      <input v-model="$data.text" type="text">
-      <button type="submit">送信</button>
-    </form>
+    <div class="footer">
+      <form @submit="onSubmit">
+        名前：
+        <input v-model="$data.name" type="text">
+        テキスト：
+        <input v-model="$data.text" type="text">
+        <button type="submit">送信</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -60,7 +64,7 @@ export default {
     });
     socket.on('send', (item) => {
       console.log(item);
-      this.$data.message = item;
+      // this.$data.item = item;
     });
   },
   methods: {
@@ -95,8 +99,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.titlebar {
+.middle {
   position: absolute;
+  top: 50px;
+  right: 0;
+  left: 0;
+  height: 100%;
+  background-color: aliceblue;
+  overflow: scroll;
+
+  .chatspace {
+    position: absolute;
+    right: 0;
+    left: 0;
+  }
+}
+
+.titlebar {
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -112,11 +132,17 @@ export default {
   }
 }
 
-.chatspace {
-  position: absolute;
-  top: 60px;
+.footer {
+  position: fixed;
+  bottom: 0;
   right: 0;
   left: 0;
+  // height: 40px;
+  width: 100%;
+  min-width: 600px;
+  border: solid 1px #999;
+  background-color: white;
+  padding: 10px;
 }
 
 li {
@@ -154,12 +180,6 @@ li {
     font-size: 8px;
     color: gray;
   }
-}
-
-form {
-  position: fixed;
-  bottom: 0;
-  padding: 10px;
 }
 
 </style>

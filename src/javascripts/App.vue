@@ -58,10 +58,10 @@ export default {
       // this.$data.text = 'connected';
       // socket.emit('connect', this.onSubmit());
     });
-    // socket.on('send', (message) => {
-    //   console.log(message);
-    //   this.$data.message = message;
-    // });
+    socket.on('send', (message) => {
+      console.log(message);
+      this.$data.message = message;
+    });
   },
   methods: {
     /**

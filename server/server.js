@@ -48,6 +48,6 @@ io.on('connection', (socket) => {
   // ユーザの参加
   socket.on('send', (message) => {
     console.log('send:', message);
-    io.emit('send', message);
+    io.sockets.emit('send', message);
   });
 });

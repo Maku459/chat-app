@@ -58,9 +58,9 @@ export default {
       // this.$data.text = 'connected';
       // socket.emit('connect', this.onSubmit());
     });
-    socket.on('send', (message) => {
-      console.log(message);
-      this.$data.message = message;
+    socket.on('send', (item) => {
+      console.log(item);
+      this.$data.message = item;
     });
   },
   methods: {

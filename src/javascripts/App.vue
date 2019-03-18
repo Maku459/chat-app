@@ -19,11 +19,15 @@
     </div>
     <div class="footer">
       <form @submit="onSubmit">
-        名前：
-        <input v-model="$data.name" type="text">
-        テキスト：
-        <input v-model="$data.text" type="text">
-        <button type="submit">送信</button>
+        <div class="form">
+          名前：
+          <input v-model="$data.name" type="text">
+        </div>
+        <div class="form">
+          テキスト：
+          <input v-model="$data.text" type="text">
+          <button type="submit">送信</button>
+        </div>
       </form>
     </div>
   </div>
@@ -139,10 +143,14 @@ export default {
   left: 0;
   // height: 40px;
   width: 100%;
-  min-width: 600px;
   border: solid 1px #999;
   background-color: white;
   padding: 10px;
+
+  .form {
+    display: inline-block;
+    padding: 5px;
+  }
 }
 
 li {
@@ -181,5 +189,4 @@ li {
     color: gray;
   }
 }
-
 </style>

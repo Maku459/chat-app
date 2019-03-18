@@ -6,14 +6,17 @@
     <div class="middle">
       <div class="chatspace">
         <ul>
-          <li
-            v-for="item in $data.messageList"
-            :key="item.id"
-          >
-            <span class="list__name">{{ item.name }}</span>
-            <span class="list__item">{{ item.text }}</span>
-            <span class="list__time">{{ item.time }}</span>
-          </li>
+          <transition-group name="fade">
+            <li
+              v-for="item in $data.messageList"
+              :key="item.id"
+              v-if="$data.show"
+            >
+              <span class="list__name">{{ item.name }}</span>
+              <span class="list__item">{{ item.text }}</span>
+              <span class="list__time">{{ item.time }}</span>
+            </li>
+          </transition-group>
         </ul>
       </div>
     </div>
@@ -46,7 +49,8 @@ export default {
       {
         name: 'a',
         text: 'アイウエオ',
-        time: '18:09'
+        time: '18:09',
+        show: true
       }
     ];
 
@@ -56,7 +60,8 @@ export default {
       nextMessageId: messageList.length,
       name: '',
       text: '',
-      time: ''
+      time: '',
+      show: true
     };
   },
   created() {
@@ -93,7 +98,8 @@ export default {
         id: this.$data.nextMessageId,
         name: this.$data.name,
         text: this.$data.text,
-        time: label
+        time: label,
+        show: true
       });
       this.$data.nextMessageId += 1;
     },
@@ -188,5 +194,13 @@ li {
     font-size: 8px;
     color: gray;
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

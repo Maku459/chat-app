@@ -29,6 +29,7 @@
 import socket from './utils/socket';
 // components
 import MyComponent from './components/MyComponent.vue';
+import io from 'socket.io-client';
 export default {
   components: {
     MyComponent
@@ -80,7 +81,7 @@ export default {
       const label = `${hour}:${minutes}`;
       // フォーム遷移を防ぐ
       e.preventDefault();
-      socket.emit('send', { name: this.$data.name, text: this.$data.text, time: label });
+      io.sockets.emit('send', { name: this.$data.name, text: this.$data.text, time: label });
       this.$data.messageList.push({
         id: this.$data.nextMessageId,
         name: this.$data.name,

@@ -109,6 +109,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+* {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
 .middle {
   position: absolute;
   top: 50px;
@@ -117,6 +123,7 @@ export default {
   height: 100%;
   background-color: aliceblue;
   overflow: scroll;
+  z-index: 10;
 
   .chatspace {
     position: absolute;
@@ -133,6 +140,7 @@ export default {
   height: 50px;
   background-color: #333;
   width: 100%;
+  z-index: 30;
 
   p {
     color: white;
@@ -152,6 +160,7 @@ export default {
   border: solid 1px #999;
   background-color: white;
   padding: 10px;
+  z-index: 20;
 
   .form {
     display: inline-block;
@@ -159,11 +168,15 @@ export default {
   }
 }
 
+ul {
+  padding-left: 20px;
+}
+
 li {
   position: relative;
   list-style: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 17px;
+  padding-bottom: 17px;
 
   .list__name {
     position: relative;
@@ -173,7 +186,7 @@ li {
   .list__item {
     position: relative;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 7px 10px;
     border-radius: 10px;
     background-color: yellowgreen;
 

@@ -71,10 +71,10 @@ export default {
       // this.$data.text = 'connected';
       // socket.emit('connect', this.onSubmit());
     });
-    socket.on('send', (item) => {
+    socket.on('send', (item, e) => {
       console.log(item);
       // this.$data.item = item;
-      this.onSubmit();
+      this.onSubmit(e);
     });
   },
   methods: {

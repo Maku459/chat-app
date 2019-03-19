@@ -74,6 +74,7 @@ export default {
     socket.on('send', (item) => {
       console.log(item);
       // this.$data.item = item;
+      socket.emit('connect', item);
     });
   },
   methods: {

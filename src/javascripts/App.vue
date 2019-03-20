@@ -13,7 +13,7 @@
               v-if="$data.show"
             >
               <span class="list__name">{{ item.name }}</span>
-              <span class="list__item">{{ item.text }}</span>
+              <span class="list__item" v-bind:class="{message: item.class === 'message', connection: item.class === 'connection'}">{{ item.text }}</span>
               <span class="list__time">{{ item.time }}</span>
             </li>
           </transition-group>
@@ -50,6 +50,7 @@ export default {
         name: 'a',
         text: 'アイウエオ',
         time: '18:09',
+        class: 'message',
         show: true
       }
     ];
@@ -61,24 +62,29 @@ export default {
       name: '',
       text: '',
       time: '',
+      class: '',
       show: true
     };
   },
   created() {
     // 受け取る
-    socket.on('connect', () => {
+    socket.on('connect', (item) => {
       console.log('connected!');
-      // this.$data.text = 'connected';
-      // socket.emit('connect', this.onSubmit());
+      this.$data.messageList.push({
+        id: this.$data.nextMessageId,
+        text: 'connected!',
+        class: 'connection',
+        show: true
+      });
+      this.$data.nextMessageId += 1;
     });
     socket.on('send', (item) => {
-      console.log(item);
-      // this.$data.item = item;
       this.$data.messageList.push({
         id: this.$data.nextMessageId,
         name: item.name,
         text: item.text,
         time: item.time,
+        class: 'message',
         show: true
       });
       this.$data.nextMessageId += 1;
@@ -196,16 +202,24 @@ li {
     box-sizing: border-box;
     padding: 7px 10px;
     border-radius: 10px;
-    background-color: yellowgreen;
 
-    &::before {
-      position: absolute;
-      content: '';
-      top: 50%;
-      left: -14px;
-      margin-top: -7px;
-      border: 7px solid transparent;
-      border-right: 7px solid yellowgreen;
+    &.message {
+      background-color: yellowgreen;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: -14px;
+        margin-top: -7px;
+        border: 7px solid transparent;
+        border-right: 7px solid yellowgreen;
+      }
+    }
+
+    &.connection {
+      background-color: #999;
+      color: #fff;
     }
   }
 

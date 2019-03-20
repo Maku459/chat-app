@@ -113,6 +113,7 @@ export default {
         name: this.$data.name,
         text: this.$data.text,
         time: label,
+        class: 'message',
         show: true
       });
       this.$data.nextMessageId += 1;

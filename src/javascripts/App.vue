@@ -71,10 +71,17 @@ export default {
       // this.$data.text = 'connected';
       // socket.emit('connect', this.onSubmit());
     });
-    socket.on('send', (item, e) => {
+    socket.on('send', (item) => {
       console.log(item);
       // this.$data.item = item;
-      this.onSubmit(e);
+      this.$data.messageList.push({
+        id: this.$data.nextMessageId,
+        name: item.name,
+        text: item.text,
+        time: item.time,
+        show: true
+      });
+      this.$data.nextMessageId += 1;
     });
   },
   methods: {

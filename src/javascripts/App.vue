@@ -13,7 +13,7 @@
               v-if="$data.show"
             >
               <span class="list__name">{{ item.name }}</span>
-              <span class="list__item" v-bind:class="{message: item.class === 'message', connection: item.class === 'connection'}">{{ item.text }}</span>
+              <span class="list__item" v-bind:class="{message__green: item.class === 'message__green', message__white: item.class === 'message__white', connection: item.class === 'connection'}">{{ item.text }}</span>
               <span class="list__time">{{ item.time }}</span>
             </li>
           </transition-group>
@@ -76,7 +76,7 @@ export default {
         name: item.name,
         text: item.text,
         time: item.time,
-        class: 'message',
+        class: 'message__white',
         show: true
       });
       this.$data.nextMessageId += 1;
@@ -105,7 +105,7 @@ export default {
         name: this.$data.name,
         text: this.$data.text,
         time: label,
-        class: 'message',
+        class: 'message__green',
         show: true
       });
       this.$data.nextMessageId += 1;
@@ -182,8 +182,10 @@ ul {
 li {
   position: relative;
   list-style: none;
-  padding-top: 17px;
-  padding-bottom: 17px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 95vw;
+  line-height: 2;
 
   .list__name {
     position: relative;
@@ -196,7 +198,7 @@ li {
     padding: 7px 10px;
     border-radius: 10px;
 
-    &.message {
+    &.message__green {
       background-color: yellowgreen;
 
       &::before {
@@ -207,6 +209,20 @@ li {
         margin-top: -7px;
         border: 7px solid transparent;
         border-right: 7px solid yellowgreen;
+      }
+    }
+
+    &.message__white {
+      background-color: #fff;
+
+      &::before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: -14px;
+        margin-top: -7px;
+        border: 7px solid transparent;
+        border-right: 7px solid #fff;
       }
     }
 

@@ -45,15 +45,7 @@ export default {
     MyComponent
   },
   data() {
-    const messageList = [
-      {
-        name: 'a',
-        text: 'アイウエオ',
-        time: '18:09',
-        class: 'message',
-        show: true
-      }
-    ];
+    const messageList = [];
 
     return {
       // map: 配列内のすべての要素に処理を行い、その戻り値から新しい配列を作成する

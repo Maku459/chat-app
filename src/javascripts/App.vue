@@ -13,7 +13,9 @@
               v-if="$data.show"
             >
               <span class="list__name">{{ item.name }}</span>
-              <span class="list__item" v-bind:class="{message__green: item.class === 'message__green', message__white: item.class === 'message__white', connection: item.class === 'connection'}">{{ item.text }}</span>
+              <div class="div__item"  v-bind:class="{message__green: item.class === 'message__green', message__white: item.class === 'message__white', connection: item.class === 'connection'}">
+                <span class="list__item">{{ item.text }}</span>
+              </div>
               <span class="list__time">{{ item.time }}</span>
             </li>
           </transition-group>
@@ -61,10 +63,18 @@ export default {
   created() {
     // 受け取る
     socket.on('connect', (item) => {
-      console.log('connected!');
       this.$data.messageList.push({
         id: this.$data.nextMessageId,
         text: 'connected!',
+        class: 'connection',
+        show: true
+      });
+      this.$data.nextMessageId += 1;
+    });
+    socket.on('disconnect', (item) => {
+      this.$data.messageList.push({
+        id: this.$data.nextMessageId,
+        text: 'disconnected!',
         class: 'connection',
         show: true
       });
@@ -128,7 +138,7 @@ export default {
   right: 0;
   left: 0;
   height: 100%;
-  background-color: aliceblue;
+  background-color: lightblue;
   overflow: scroll;
   z-index: 10;
 
@@ -182,8 +192,8 @@ ul {
 li {
   position: relative;
   list-style: none;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   max-width: 95vw;
   line-height: 2;
 
@@ -195,41 +205,6 @@ li {
   .list__item {
     position: relative;
     box-sizing: border-box;
-    padding: 7px 10px;
-    border-radius: 10px;
-
-    &.message__green {
-      background-color: yellowgreen;
-
-      &::before {
-        position: absolute;
-        content: '';
-        top: 50%;
-        left: -14px;
-        margin-top: -7px;
-        border: 7px solid transparent;
-        border-right: 7px solid yellowgreen;
-      }
-    }
-
-    &.message__white {
-      background-color: #fff;
-
-      &::before {
-        position: absolute;
-        content: '';
-        top: 50%;
-        left: -14px;
-        margin-top: -7px;
-        border: 7px solid transparent;
-        border-right: 7px solid #fff;
-      }
-    }
-
-    &.connection {
-      background-color: #999;
-      color: #fff;
-    }
   }
 
   .list__time {
@@ -237,6 +212,47 @@ li {
     top: 7px;
     font-size: 8px;
     color: gray;
+  }
+}
+
+.div__item {
+  position: relative;
+  padding: 4px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  max-width: calc(95% - 70px);
+
+  &.message__green {
+    background-color: yellowgreen;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: calc(100% - 18px);
+      left: -14px;
+      margin-top: -7px;
+      border: 7px solid transparent;
+      border-right: 7px solid yellowgreen;
+    }
+  }
+
+  &.message__white {
+    background-color: #fff;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: calc(100% - 18px);
+      left: -14px;
+      margin-top: -7px;
+      border: 7px solid transparent;
+      border-right: 7px solid #fff;
+    }
+  }
+
+  &.connection {
+    background-color: #999;
+    color: #fff;
   }
 }
 

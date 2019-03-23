@@ -196,6 +196,7 @@ li {
   padding-bottom: 7px;
   max-width: 95vw;
   line-height: 2;
+  display: flex;
 
   .list__name {
     position: relative;
@@ -212,6 +213,9 @@ li {
     top: 7px;
     font-size: 8px;
     color: gray;
+    margin-left: 5px;
+    margin-top: auto;
+    margin-bottom: 3px;
   }
 }
 
@@ -228,7 +232,7 @@ li {
     &::before {
       position: absolute;
       content: '';
-      top: calc(100% - 18px);
+      top: 18px;
       left: -14px;
       margin-top: -7px;
       border: 7px solid transparent;
@@ -242,7 +246,7 @@ li {
     &::before {
       position: absolute;
       content: '';
-      top: calc(100% - 18px);
+      top: 18px;
       left: -14px;
       margin-top: -7px;
       border: 7px solid transparent;

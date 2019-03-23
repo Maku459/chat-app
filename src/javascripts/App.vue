@@ -31,7 +31,7 @@
         <div class="form">
           テキスト：
           <input v-model="$data.text" type="text">
-          <button type="submit">送信</button>
+          <button class="button" type="submit">送信</button>
         </div>
       </form>
     </div>
@@ -146,6 +146,7 @@ export default {
     position: absolute;
     right: 0;
     left: 0;
+    margin-bottom: 60px;
   }
 }
 
@@ -175,7 +176,7 @@ export default {
   // height: 40px;
   width: 100%;
   border: solid 1px #999;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 10px;
   z-index: 20;
 
@@ -257,6 +258,22 @@ li {
   &.connection {
     background-color: #999;
     color: #fff;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #333;
+  border: solid 1px #333;
+  border-radius: 5px;
+  transition: 0.4s;
+  margin-left: 8px;
+
+  &:hover {
+    background: #333;
+    color: white;
   }
 }
 

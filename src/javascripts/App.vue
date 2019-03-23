@@ -48,7 +48,6 @@ export default {
   },
   data() {
     const messageList = [];
-
     return {
       // map: 配列内のすべての要素に処理を行い、その戻り値から新しい配列を作成する
       messageList: messageList.map((item, index) => ({ ...item, id: index })),
@@ -122,7 +121,6 @@ export default {
     },
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -146,7 +144,7 @@ export default {
     position: absolute;
     right: 0;
     left: 0;
-    margin-bottom: 60px;
+    margin-bottom: 120px;
   }
 }
 

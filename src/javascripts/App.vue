@@ -37,7 +37,7 @@
         </form>
       </transition>
       <div class="button__visible" v-on:click="toggle">
-        <img src="../images/icoon-mono.svg" width="16px" alt="close" v-bind:class="{ rotate: visible }">
+        <img src="../images/arrow.svg" width="16px" alt="close" v-bind:class="{ rotate: visible }">
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     /**
-     * フォーム開閉
+     * フォーム開閉テスト
      */
     toggle() {
       this.visible = !this.visible;

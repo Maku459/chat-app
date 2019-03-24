@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overall">
     <div class="titlebar">
       <p>トークルーム</p>
     </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="form">
           テキスト：
-          <input v-model="$data.text" type="text">
+          <input v-model="$data.text" type="text" class="form__text">
           <button class="button" type="submit">送信</button>
         </div>
       </form>
@@ -118,6 +118,7 @@ export default {
         show: true
       });
       this.$data.nextMessageId += 1;
+      this.$data.text = '';
     },
   }
 };
@@ -128,6 +129,11 @@ export default {
 
 * {
   font-family: 'Noto Sans JP', sans-serif;
+}
+
+.overall {
+  display: flex;
+  flex-direction: column;
 }
 
 .middle {
@@ -268,6 +274,7 @@ li {
   border-radius: 5px;
   transition: 0.4s;
   margin-left: 8px;
+  margin-top: 5px;
 
   &:hover {
     background: #333;

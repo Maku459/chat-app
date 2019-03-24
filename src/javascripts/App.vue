@@ -23,17 +23,22 @@
       </div>
     </div>
     <div class="footer">
-      <form @submit="onSubmit">
-        <div class="form">
-          名前：
-          <input v-model="$data.name" type="text">
-        </div>
-        <div class="form">
-          テキスト：
-          <input v-model="$data.text" type="text" class="form__text">
-          <button class="button" type="submit">送信</button>
-        </div>
-      </form>
+      <transition>
+        <form @submit="onSubmit" v-show="visible">
+          <div class="form">
+            名前：
+            <input v-model="$data.name" type="text">
+          </div>
+          <div class="form">
+            テキスト：
+            <input v-model="$data.text" type="text" class="form__text">
+            <button class="button" type="submit">送信</button>
+          </div>
+        </form>
+      </transition>
+      <div class="button__visible" v-on:click="toggle">
+        <img src="../images/icoon-mono.svg" width="16px" alt="close" v-bind:class="{ rotate: visible }">
+      </div>
     </div>
   </div>
 </template>
@@ -56,7 +61,8 @@ export default {
       text: '',
       time: '',
       class: '',
-      show: true
+      show: true,
+      visible: true
     };
   },
   created() {
@@ -93,8 +99,11 @@ export default {
   },
   methods: {
     /**
-     * 入室したとき
+     * フォーム開閉
      */
+    toggle() {
+      this.visible = !this.visible;
+    },
     /**
      * Enterボタンを押したとき
      */
@@ -182,6 +191,7 @@ export default {
   border: solid 1px #999;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 10px;
+  padding-top: 20px;
   z-index: 20;
 
   .form {
@@ -280,6 +290,17 @@ li {
     background: #333;
     color: white;
   }
+}
+
+.button__visible {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.rotate {
+  transform: rotate(-180deg);
+  transition-duration: 0.3s;
 }
 
 .fade-enter-active, .fade-leave-active {

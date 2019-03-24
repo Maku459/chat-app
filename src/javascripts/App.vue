@@ -32,7 +32,7 @@
           <div class="form">
             テキスト：
             <input v-model="$data.text" type="text" class="form__text">
-            <button class="button" type="submit">送信</button>
+            <button class="button__submit" type="submit">送信</button>
           </div>
         </form>
       </transition>
@@ -117,17 +117,19 @@ export default {
       const label = `${hour}:${minutes}`;
       // フォーム遷移を防ぐ
       e.preventDefault();
-      socket.emit('send', { name: this.$data.name, text: this.$data.text, time: label });
-      this.$data.messageList.push({
-        id: this.$data.nextMessageId,
-        name: this.$data.name,
-        text: this.$data.text,
-        time: label,
-        class: 'message__green',
-        show: true
-      });
-      this.$data.nextMessageId += 1;
-      this.$data.text = '';
+      if (this.$data.name !== '' && this.$data.text !== '') {
+        socket.emit('send', { name: this.$data.name, text: this.$data.text, time: label });
+        this.$data.messageList.push({
+          id: this.$data.nextMessageId,
+          name: this.$data.name,
+          text: this.$data.text,
+          time: label,
+          class: 'message__green',
+          show: true
+        });
+        this.$data.nextMessageId += 1;
+        this.$data.text = '';
+      }
     },
   }
 };
@@ -174,7 +176,7 @@ export default {
   z-index: 30;
 
   p {
-    color: white;
+    color: #fff;
     width: 100px;
     margin-left: auto;
     margin-right: auto;
@@ -189,7 +191,7 @@ export default {
   // height: 40px;
   width: 100%;
   border: solid 1px #999;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
   padding-top: 20px;
   z-index: 20;
@@ -275,11 +277,12 @@ li {
   }
 }
 
-.button {
+.button__submit {
   display: inline-block;
   padding: 0.3em 1em;
   text-decoration: none;
   color: #333;
+  background-color: #fff;
   border: solid 1px #333;
   border-radius: 5px;
   transition: 0.4s;
@@ -288,7 +291,7 @@ li {
 
   &:hover {
     background: #333;
-    color: white;
+    color: #fff;
   }
 }
 

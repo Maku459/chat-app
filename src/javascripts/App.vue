@@ -63,7 +63,6 @@ export default {
       class: '',
       show: true,
       visible: true,
-      number: null
     };
   },
   created() {
@@ -76,8 +75,6 @@ export default {
         show: true
       });
       this.$data.nextMessageId += 1;
-      this.$data.number += 1;
-      console.log(this.$data.number);
     });
     socket.on('disconnect', (item) => {
       this.$data.messageList.push({
@@ -87,8 +84,6 @@ export default {
         show: true
       });
       this.$data.nextMessageId += 1;
-      this.$data.number -= 1;
-      console.log(this.$data.number);
     });
     socket.on('send', (item) => {
       this.$data.messageList.push({

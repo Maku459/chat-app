@@ -62,7 +62,8 @@ export default {
       time: '',
       class: '',
       show: true,
-      visible: true
+      visible: true,
+      number: null
     };
   },
   created() {
@@ -75,6 +76,8 @@ export default {
         show: true
       });
       this.$data.nextMessageId += 1;
+      this.$data.number += 1;
+      console.log(this.$data.number);
     });
     socket.on('disconnect', (item) => {
       this.$data.messageList.push({
@@ -84,6 +87,8 @@ export default {
         show: true
       });
       this.$data.nextMessageId += 1;
+      this.$data.number -= 1;
+      console.log(this.$data.number);
     });
     socket.on('send', (item) => {
       this.$data.messageList.push({
@@ -99,7 +104,7 @@ export default {
   },
   methods: {
     /**
-     * フォーム開閉テスト
+     * フォーム開閉
      */
     toggle() {
       this.visible = !this.visible;
